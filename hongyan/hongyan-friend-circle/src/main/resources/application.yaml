@@ -1,0 +1,52 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: sca-edu-dubbo-autodeliver
+  main:
+    allow-bean-definition-overriding: true
+dubbo:
+  application:
+    id: sca-edu-dubbo-autodeliver
+    #    name: sca-edu-dubbo-autodeliver
+    qos-enable: false
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    subscribed-services: sca-edu-dubbo-service-resume
+
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    druid:
+      url: jdbc:mysql://106.12.147.140:3306/hongyan_friend_circle?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: ASOMsmntr#$@!df
+
+# mybatis-plus配置
+mybatis-plus:
+  configuration:
+    # 开启下划线转驼峰配置
+    map-underscore-to-camel-case: true
+  typeAliasesPackage: com.bwfw.ppq.entity
+  mapperLocations: classpath:mapper/*.xml
+  # 全局配置id自增 同时 主键自动回填
+  global-config:
+    db-config:
+      id-type: auto
+
+# jwt自定义配置
+jwt:
+  expireTime: 30
+  tokenSecret: qcbcyKey
+
+#默认页面设置
+defpage:
+  pagesize: 10
+  pageindex: 1
+
+

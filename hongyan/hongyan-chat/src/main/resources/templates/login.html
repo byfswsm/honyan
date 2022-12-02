@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
+<head>
+    <meta charset="UTF-8">
+    <title>chat room websocket</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <script th:src="@{/js/jquery-3.3.1.min.js}" ></script>
+</head>
+<body class="container">
+<div class="form-group">
+    <div id="login_main_div">
+        <input id="username" name="username" value="" placeholder="用户名" class="form-control" /></br>
+        <input type="password" id="password" name="password" value="" placeholder="密码" class="form-control" /></br>
+        <button id="user_entry" class="btn btn-success">登陆</button>
+        <button id="user_register" class="btn btn-success">注册</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#user_entry").click(function() {
+            window.location.href = "/chat/login?username=" + $("#username").val() + "&password=" + $("#password").val();
+        });
+    });
+</script>
+</html>

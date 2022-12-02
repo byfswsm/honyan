@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qcby.unifiedVerificationPlatform.mapper.LoginDAO">
+
+
+    <select id="isStudent" resultType="com.qcby.unifiedVerificationPlatform.entity.User">
+        SELECT t1.*, t2.email, t2.phone
+        FROM user t1
+                 INNER JOIN student t2 ON t1.id = t2.user_id ${ew.customsqlSegment}
+
+    </select>
+
+
+    <select id="isTeacher" resultType="com.qcby.unifiedVerificationPlatform.entity.User">
+        SELECT t1.*, t2.email, t2.phone
+        FROM user t1
+                 INNER JOIN teacher t2 ON t1.id = t2.user_id ${ew.customsqlSegment}
+    </select>
+
+</mapper>

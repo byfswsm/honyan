@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qcby.hongyanfriendcircle.mapper.MomentsMapper">
+    
+    <resultMap id="MonmentsMap" type="com.qcby.hongyanfriendcircle.vo.MomentsVO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <id column="user_id" property="userId" jdbcType="BIGINT"/>
+        <id column="content" property="content" jdbcType="LONGVARCHAR"/>
+        <id column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <id column="visible_time" property="visibleTime" jdbcType="TIMESTAMP" />
+        <collection property="refFabulousList" column="id" select="com.bwfw.ppq.mapper.RefFabulousMapper.selectFabulousList" />
+        <collection property="commentList" column="id" select="com.bwfw.ppq.mapper.CommentMapper.selectCommentList"/>
+    </resultMap>
+
+    <select id="otherMoments" resultMap="MonmentsMap">
+        SELECT
+            `id`,
+            `user_id`,
+            `content`,
+            `create_time`,
+            `visible_time`,
+            `state`,
+            `pingstate`
+        FROM
+            moments
+        WHERE
+            user_id = #{momentParamVo.userId}
+            AND visible_time > #{momentParamVo.nowTime}
+          AND (
+                ( pingstate = 0 )
+                OR ( pingstate = 1 AND id NOT IN ( SELECT moments_id FROM ref_shield WHERE user_id = #{#{momentParamVo.id}} ) )
+                OR ( pingstate = 2 AND id IN ( SELECT moments_id FROM ref_allow WHERE user_id = #{#{momentParamVo.id}} ) )
+            )
+          AND state = 0
+    </select>
+    <select id="ownMoments" resultMap="MonmentsMap">
+        select
+            `id`,
+            `user_id`,
+            `content`,
+            `create_time`,
+            `visible_time`,
+            `state`,
+            `pingstate`
+        from moments
+        where user_id = #{id}
+    </select>
+
+    <select id="selectMoments" resultMap="MonmentsMap">
+        SELECT
+            `id`,
+            `user_id`,
+            `content`,
+            `create_time`,
+            `visible_time`,
+            `state`,
+            `pingstate`
+        FROM
+            moments
+        WHERE
+            user_id IN ( SELECT other_id FROM ref_friend WHERE user_id = #{momentParamVo.id} )
+          AND visible_time > #{momentParamVo.nowTime}
+          AND (
+                ( pingstate = 0 )
+                OR ( pingstate = 1 AND id NOT IN ( SELECT moments_id FROM ref_shield WHERE user_id = #{momentParamVo.id} ) )
+                OR ( pingstate = 2 AND id IN ( SELECT moments_id FROM ref_allow WHERE user_id = #{momentParamVo.id} ) )
+            )
+          AND state = 0
+
+    </select>
+
+</mapper>

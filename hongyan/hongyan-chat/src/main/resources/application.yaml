@@ -1,0 +1,32 @@
+logging:
+#  file: D:\log\application.log
+  level:
+    cn:
+      cansluck:
+        controller: DEBUG
+    root: INFO
+mybatis:
+  mapperLocations: classpath:mapping/*.xml
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: 30208629Liu
+    url: jdbc:mysql://127.0.0.1:3306/instant_message?serverTimezone=GMT%2B8
+    username: root
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  thymeleaf:
+    cache: false
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启下划线转驼峰配置
+    map-underscore-to-camel-case: true
+  typeAliasesPackage: com.qcby.hongyanchat.model
+  mapperLocations: classpath:mapping/*.xml
+  # 全局配置id自增 同时 主键自动回填
+  global-config:
+    db-config:
+      id-type: auto

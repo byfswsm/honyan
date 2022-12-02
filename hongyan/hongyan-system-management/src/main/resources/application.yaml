@@ -1,0 +1,50 @@
+dubbo:
+  application:
+    # 应用名称
+    name: hongyan-system
+  protocol:
+    # 协议名称
+    name: dubbo
+    # 协议端口
+    port: -1
+  registry:
+    # 注册中心地址
+    address: nacos://106.12.147.140:8848
+    username: nacos
+    password: QcbyNacos2021
+  provider:
+    SysUserRpc:
+      version: 1.0.0
+spring:
+  application:
+    name: ${dubbo.application.name}
+  datasource:
+    druid:
+      url: jdbc:mysql://106.12.147.140/hongyan_system_management?useSSL=false&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true
+      username: root
+      password: ASOMsmntr#$@!df
+      driver-class-name: com.mysql.jdbc.Driver
+server:
+  port: 9000
+
+# mybatis-plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # mybaatis_plus默认开启下划线转驼峰配置
+    # map-underscore-to-camel-case: true
+  typeAliasesPackage: com.qcby.hongyansystemmanagement.entity
+  mapperLocations: classpath:mapper/*.xml
+  # 全局配置id自增 同时 主键自动回填
+  global-config:
+    db-config:
+      id-type: auto
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true # 修改默认值
+
+# jwt自定义配置
+jwt:
+  expireTime: 30
+  tokenSecret: qcbcyKey

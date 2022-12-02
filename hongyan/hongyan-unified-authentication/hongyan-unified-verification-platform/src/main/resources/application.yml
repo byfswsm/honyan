@@ -1,0 +1,76 @@
+server:
+  port: 8080
+#  servlet:
+#    context-path: /wangyi
+spring:
+  #  jackson:
+  #    date-format: yyyy-MM-dd HH:mm:ss
+  #    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://localhost:3306/hongyan_unified_authentication?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false # 缓存开关，默认开启：上线之后开启；研发期间关闭
+
+  mvc: #  静态资源访问
+    servlet.load-on-startup: 0
+    static-path-pattern: /static/**
+  freemarker:
+    templateLoaderPath: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+    settings.number_format: 0.##########
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+
+# mybatis-plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启下划线转驼峰配置
+    map-underscore-to-camel-case: true
+  typeAliasesPackage: com.qcby.unifiedVerificationPlatform.entity
+  mapperLocations: classpath:mapper/*.xml
+  # 全局配置id自增 同时 主键自动回填
+  global-config:
+    db-config:
+      id-type: auto
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true # 修改默认值
+
+#swagger20211108:
+#  title: 星芒四组第一个项目--学校信息管理系统 API
+#  description: 星芒四组第一个项目--学校信息管理系统
+#  version: 1.0
+#  contactName: wangyi
+#  contactEmail:
+#  contactUrl:
+#  basePackageRest: com.clusterProject.unifiedVerificationPlatform.controller
+#  termsOfServiceUrl:
+
+# jwt自定义配置
+jwt:
+  expireTime: 30
+  tokenSecret: qcbcyKey
+
+### redis
+redis-wangyi:
+  redisAddress: redis://106.12.147.140:8973
+  redisExpireMinute: 1440
+
+wx:
+  appId: wxea2997a139dbc5bc
+  appSecret: 3097a9c074c1eaa7f0bd943499e30b7d
+  server: http://vkq4sb.natappfree.cc
+  qrCodeUrl: https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN
+  tokenUrl: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=SECRET
+  openIdUrl: https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=SECRET
+  userInfoUrl: https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
+

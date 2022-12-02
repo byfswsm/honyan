@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <!-- 类的全限定名  =>   com.qcby.xmfs.boot.mapper.UserMapper-->
+<mapper namespace="com.qcby.hongyanfriendcircle.mapper.RefFabulousMapper">
+
+<delete id="delectFabulous">
+        delete from ref_fabulous where user_id = #{userId} and moments_id = #{momentsId}
+    </delete>
+
+<insert id="addFabulous">
+       insert into ref_fabulous(moments_id,user_id,create_time) VALUES (#{momentsId},#{userId},#{createTime})
+    </insert>
+<select id="selectFabulous" resultType="com.qcby.hongyanfriendcircle.entity.RefFabulous">
+        select user_id,create_time from ref_fabulous where moments_id= #{momentsId}
+    </select>
+</mapper>

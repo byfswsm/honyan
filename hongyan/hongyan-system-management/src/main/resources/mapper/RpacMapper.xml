@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qcby.hongyansystemmanagement.mapper.RpacMapper">
+
+    <select id="selectAllUser" resultType="com.qcby.hongyansystemmanagement.entity.User">
+        select uid, username, password, details from user
+    </select>
+
+    <insert id="userInsert">
+        insert into user values (#{uid}, #{username}, #{password}, #{details})
+    </insert>
+
+    <delete id="userDelete">
+        delete from user where uid = #{uid}
+    </delete>
+
+    <update id="userUpdate">
+        update user set username = #{username}, password = #{password} , details = #{details} where uid = #{uid}
+    </update>
+
+    <insert id="userRoleInsert">
+        insert into user_to_role values (#{uid}, #{rid})
+    </insert>
+
+    <delete id="userRoleDelete">
+        delete from user_to_role where uid = #{uid}
+    </delete>
+
+    <update id="userRoleUpdate">
+        update user_to_role set rid = #{rid} where uid = #{uid}
+    </update>
+
+
+    <select id="selectRoleToPower" resultType="com.qcby.hongyansystemmanagement.entity.RoleToPower">
+        select  role.rname ,role.level,power.powername  from role_to_power join role on role_to_power.rid = role.rid join power on role_to_power.pid = power.pid order by role.level
+    </select>
+
+    <select id="selectAllPower" resultType="string">
+        select powername from power
+    </select>
+</mapper>

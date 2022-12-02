@@ -1,0 +1,20 @@
+dubbo:
+  application:
+    # 应用名称
+    name: hongyan-unified
+  protocol:
+    # 协议名称
+    name: dubbo
+    # 协议端口
+    port: -1
+  registry:
+    # 注册中心地址R
+    address: nacos://106.12.147.140:8848
+    username: nacos
+    password: QcbyNacos2021
+  consumer:
+    # 默认是true 检查依赖服务是否注入成功
+    check: false
+    SysUserRpc:
+      version: 1.0.0
+#      version1: 1.0.1

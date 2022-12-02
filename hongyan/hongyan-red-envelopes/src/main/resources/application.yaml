@@ -1,0 +1,97 @@
+dubbo:
+  application:
+    # 应用名称
+    name: order-service
+  protocol:
+    # 协议名称
+    name: dubbo
+    # 协议端口
+    port: -1
+  registry:
+    # 注册中心地址
+    address: nacos://106.12.147.140:8848
+    username: nacos
+    password: QcbyNacos2021
+  consumer:
+    check: false
+    WareStockRpc:
+      version: 1.0.0
+server:
+  port: 8083
+spring:
+  application:
+    name: ${dubbo.application.name}
+  datasource:
+    druid:
+      url: jdbc:mysql://106.12.147.140/hongyan_red_envelopes?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+      username: root
+      password: ASOMsmntr#$@!df
+      driver-class-name: com.mysql.jdbc.Driver
+  #  datasource:
+  #    druid:
+  #         如果第二个url不管用，那么就用第一个url
+  #      url: jdbc:mysql://106.12.147.140:3306/template_order?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+  #      url: jdbc:mysql://106.12.147.140:3306/template_order?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=CTT
+  #      driver-class-name: com.mysql.jdbc.Driver
+  #      username: root
+  #      password: ASOMsmntr#$@!df
+  rabbitmq:
+    host: 106.12.147.140
+    port: 5672
+    #    虚拟主机
+    virtual-host: /
+    #    开启发送端抵达队列确认【发送端确认机制+本地事务表】
+    publisher-returns: true
+    #    开启发送确认【发送端确认机制+本地事务表】
+    publisher-confirm-type: correlated
+    #    只要抵达队列，优先回调return confirm
+    template:
+      mandatory: true
+    #    使用手动确认模式，关闭自动确认【消息丢失】
+    listener:
+      simple:
+        acknowledge-mode: manual
+  redis:
+    host: 106.12.147.140
+    port: 8973
+    password:
+#    sentinel:
+#      # 哨兵的IP:Port列表
+#      nodes: 106.12.147.140:26374,106.12.147.140:26375,106.12.147.140:26376
+#      master: mymaster
+    # lettuce客户端
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 50
+        # 连接池中的最大空闲连接
+        max-idle: 20
+        # 连接池最大阻塞等待时间（使用负值表示没有限制
+        max-wait: 20
+        # 连接池中的最小空闲连接
+        min-idle: 5
+seata:
+  #  enabled: true
+  application-id: ${spring.application.name}
+  #  # 是否开启数据源自动代理 如果不开启设置为false
+  #  enable-auto-data-source-proxy: true
+  tx-service-group: default_tx_group
+  service:
+    vgroup-mapping:
+      default_tx_group: default  #key与上面的tx-service-group的值对应
+  registry:
+    type: nacos
+    nacos:
+      group: SEATA_GROUP
+      server-addr: 106.12.147.140:8848
+      username: nacos
+      password: QcbyNacos2021
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  typeAliasesPackage: com.qcby.entity
+  mapperLocations: classpath:mapper/*.xml
+  # 全局配置id自增  =>
+  global-config:
+    db-config:
+      id-type: auto

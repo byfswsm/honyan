@@ -1,0 +1,52 @@
+### web
+#server:
+#    port: 8081
+#server.servlet.context-path=/xxl-sso-server
+#
+#### resources
+#spring.mvc.servlet.load-on-startup=0
+#spring.mvc.static-path-pattern=/static/**
+#spring.resources.static-locations=classpath:/static/
+#
+#### freemarker
+#spring.freemarker.templateLoaderPath=classpath:/templates/
+#spring.freemarker.suffix=.ftl
+#spring.freemarker.charset=UTF-8
+#spring.freemarker.request-context-attribute=request
+#spring.freemarker.settings.number_format=0.##########
+#
+#xxl.sso.server=http://127.0.0.1:8080/xxl-sso-server
+#xxl.sso.logout.path=/logout
+#xxl-sso.excluded.paths=
+#xxl.sso.redis.address=redis://127.0.0.1:6379
+server:
+  port: 8081
+  servlet:
+    context-path: /chat-platform
+
+
+spring:
+  #  jackson:
+  #    date-format: yyyy-MM-dd HH:mm:ss
+  #    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://localhost:3306/hongyan_unified_authentication?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false # 缓存开关，默认开启：上线之后开启；研发期间关闭
+
+  mvc: #  静态资源访问
+    servlet.load-on-startup: 0
+    static-path-pattern: /static/**
+  freemarker:
+    templateLoaderPath: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+    settings.number_format: 0.##########
+  web:
+    resources:
+      static-locations: classpath:/static/
+
